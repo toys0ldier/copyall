@@ -15,7 +15,7 @@ def progress(fileName, compNum):
         printName = '...' + fileName[-(printWidth - 3):]
     else:
         pass
-    sys.stdout.write("%s [ Progress: %.2f%% ]   \r" % (printName, float(STATS['success']) / float(numItems) * 100))
+    sys.stdout.write("%s [ Progress: %.2f%% ]   \r" % (printName, float(STATS['success'] + STATS['failure']) / float(numItems) * 100))
     if (STATS['success'] + STATS['failure']) % numItems == 0:
         print('')
         print('\nProcess completed successfully; summary:')
