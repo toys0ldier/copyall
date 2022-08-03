@@ -11,7 +11,5 @@ move    ->   moves items from source to destination
 ext     ->   action only items with specified extension(s)
              supply multiple extensions like: exe,png,jpg
 
-Enclose multi-word searches with single quotes, i.e. 'foo bar'
-
 Created by toys0ldier, github.com/toys0ldier
 ```

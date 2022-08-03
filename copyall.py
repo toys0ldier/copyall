@@ -19,9 +19,7 @@ def showHelp():
     print('move    ->   moves items from source to destination')
     print('ext     ->   action only items with specified extension(s)')
     print('             supply multiple extensions like: exe,png,jpg')
-    
-    print("\nEnclose multi-word searches with single quotes, i.e. 'foo bar'")
-    
+        
     print('\nCreated by toys0ldier, github.com/toys0ldier')
     sys.exit()
     
