@@ -77,14 +77,14 @@ def singleDepth(source):
             if exts:
                 if entry.is_file() and entry.name.lower().endswith(tuple(exts)):
                     if funct == 'copy':
-                        copy(entry.path, outputFile)
+                        copy(entry, outputFile)
                     else:
-                        move(entry.path, outputFile)
+                        move(entry, outputFile)
             else:
                 if funct == 'copy':
-                    copy(entry.path, outputFile)
+                    copy(entry, outputFile)
                 else:
-                    move(entry.path, outputFile)
+                    move(entry, outputFile)
             STATS['success'] += 1
             progress(entry.name)
         except (FileNotFoundError, FileExistsError) as err:
