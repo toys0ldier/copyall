@@ -1,3 +1,5 @@
+#!/opt/homebrew/bin/python3
+
 import os, shutil, sys
 
 STATS = {
@@ -5,6 +7,7 @@ STATS = {
     'exists': 0,
     'not_found': 0
 }
+
 class OperationError(Exception):
     
     def __init__(self, message="Whoops! We're missing some arguments!"):
@@ -24,7 +27,16 @@ def showHelp():
     sys.exit()
     
 def progress(fileName):
-    printWidth = (os.get_terminal_size().columns - 25)
+    
+    def progressBar(pct):
+        bar = ''
+        for i in range(0, pct, 5):
+            bar += '■'
+        for i in range(0, 100 - pct, 5):
+            bar += '-'
+        return bar
+        
+    printWidth = (os.get_terminal_size().columns - 34)
     printName = fileName
     if len(printName) < printWidth:
         for _ in range(0, (printWidth - len(printName))):
@@ -33,7 +45,8 @@ def progress(fileName):
         printName = '...' + fileName[-(printWidth - 3):]
     else:
         pass
-    sys.stdout.write("%s [ Progress: %.2f%% ]   \r" % (printName, float(sum([i for i in STATS.values()])) / float(numItems) * 100))
+    pct = float(sum([i for i in STATS.values()])) / float(numItems) * 100
+    sys.stdout.write("%s [%s %.2f%%]   \r" % (printName, progressBar(round(pct)), pct))
     if sum([i for i in STATS.values()]) % numItems == 0:
         print('')
         print('\nProcess completed successfully; summary:')
@@ -85,7 +98,7 @@ def singleDepth(source):
                     move(entry, outputFile)
             STATS['success'] += 1
             progress(entry.name)
-        except (FileNotFoundError, FileExistsError) as err:
+        except (FileNotFoundError, FileExistsError, shutil.Error) as err:
             if 'exists' in str(err):
                 STATS['exists'] += 1
             else:
